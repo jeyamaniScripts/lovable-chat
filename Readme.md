@@ -127,3 +127,9 @@ npm run dev
 
 Frontend runs at:
 http://localhost:5173
+
+
+## 🐳 Docker Hub Images
+
+- Auth Service: https://hub.docker.com/r/jeyamani/auth-service
+- Chat Service: https://hub.docker.com/r/jeyamani/chat-service
