@@ -1,0 +1,29 @@
+services:
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "50051:50051"
+    env_file:
+      - ./auth-service/.env
+    depends_on:
+      - mongo
+
+  chat-service:
+    build: ./chat-service
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./chat-service/.env
+    depends_on:
+      - auth-service
+      - mongo
+
+volumes:
+  mongo-data:

@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+/* ✅ Tailwind v4 theme extension */
+@theme {
+  --color-primary: #6366f1; /* Indigo */
+  --color-secondary: #eef2ff; /* Light Indigo */
+
+  --font-sans: "Work Sans", sans-serif;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+
+  /* ✅ CENTER CONTENT */
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("./assets/bg.jpg");
+  background-size: cover;
+  background-position: center;
+
+  font-family: var(--font-sans);
+}

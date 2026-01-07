@@ -1,0 +1,13 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Environment indicated
+.env
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
