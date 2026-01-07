@@ -1,0 +1,446 @@
+{
+  "info": {
+    "_postman_id": "345444bf-da56-4234-955d-3d95bcbca8fa",
+    "name": "lovable",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "chat",
+      "item": [
+        {
+          "name": "create or one on one chat",
+          "id": "e0f7ec83-bfb5-49b0-8cdc-e8c9574b4b71",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create group",
+          "id": "6377f30a-4db8-46e0-a2a1-d380e430c029",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU0NDA3OCwiZXhwIjoxNzcwMTM2MDc4fQ.4Ek0aumvDJLeXbZUWxqeFotHMUxdsjMLyRJ2w4SQOpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "je",
+                  "type": "text"
+                },
+                {
+                  "key": "users",
+                  "value": "[  \"69594b1c0b9cfa388424fdff\",   \"695a6666cdb9b8ea4825a196\"]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/chat/group",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "chat",
+                "group"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add user",
+          "id": "295526d2-f21f-45a2-ad17-cd8786d37dcc",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU0NDA3OCwiZXhwIjoxNzcwMTM2MDc4fQ.4Ek0aumvDJLeXbZUWxqeFotHMUxdsjMLyRJ2w4SQOpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "chatId",
+                  "value": "695a9751c11eece1af7bc570",
+                  "type": "text"
+                },
+                {
+                  "key": "userId",
+                  "value": "695a6666cdb9b8ea4825a196",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/chat/groupadd",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "chat",
+                "groupadd"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "rename",
+          "id": "fd49f341-0221-4fa3-901a-6e62e1fc9709",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU0NDA3OCwiZXhwIjoxNzcwMTM2MDc4fQ.4Ek0aumvDJLeXbZUWxqeFotHMUxdsjMLyRJ2w4SQOpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "chatId",
+                  "value": "695a9751c11eece1af7bc570",
+                  "type": "text"
+                },
+                {
+                  "key": "chatName",
+                  "value": "goup update",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/chat/rename",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "chat",
+                "rename"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "remove user",
+          "id": "1864032e-77f0-41f7-bc18-c314990a094c",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU0NDA3OCwiZXhwIjoxNzcwMTM2MDc4fQ.4Ek0aumvDJLeXbZUWxqeFotHMUxdsjMLyRJ2w4SQOpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "chatId",
+                  "value": "695a9751c11eece1af7bc570",
+                  "type": "text"
+                },
+                {
+                  "key": "userId",
+                  "value": "695a6666cdb9b8ea4825a196",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/chat/groupremove",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "chat",
+                "groupremove"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch chats",
+          "id": "914f4b5c-38d4-4896-83a2-59d8c8a12f10",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU5NTQ3MiwiZXhwIjoxNzcwMTg3NDcyfQ.lZ-vLSM_rk21aeYhsN1i0pG7WUyoQuYWH9WIR_K4mBI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4000/api/chat/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "chat",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "f0126b77-d65a-4b4d-a66d-c18ff63ec7f1"
+    },
+    {
+      "name": "message",
+      "item": [
+        {
+          "name": "send new msg",
+          "id": "b6da54b0-022a-4b66-ad81-7c2f98bc6b6c",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU5NTQ3MiwiZXhwIjoxNzcwMTg3NDcyfQ.lZ-vLSM_rk21aeYhsN1i0pG7WUyoQuYWH9WIR_K4mBI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "content",
+                  "value": "sollunga gusz",
+                  "type": "text"
+                },
+                {
+                  "key": "chatId",
+                  "value": "695a9751c11eece1af7bc570",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:4000/api/message",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "message"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "fetch all mgs chat",
+          "id": "7b858a4c-0fb6-44cc-bdcb-9c1f185e8567",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzU5NTQ3MiwiZXhwIjoxNzcwMTg3NDcyfQ.lZ-vLSM_rk21aeYhsN1i0pG7WUyoQuYWH9WIR_K4mBI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4000/api/message/69594b1c0b9cfa388424fdff",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4000",
+              "path": [
+                "api",
+                "message",
+                "69594b1c0b9cfa388424fdff"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "dbded765-2e45-49c0-ad7e-a54f2b565bb1"
+    },
+    {
+      "name": "register",
+      "id": "0bc94783-a511-4e85-adf5-19a36f3e39c8",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "jeyam",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "jeyam@gmail.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "1234",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "id": "cc3397f3-b1a3-4db0-87cd-b385660a1760",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "je@gmail.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "je",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/user/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "user",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "allusers",
+      "id": "336a24db-ca65-4717-9cab-0cd3e4a065d6",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWE2N2RiY2RiOWI4ZWE0ODI1YTE5YiIsImlhdCI6MTc2NzUzNjc5OSwiZXhwIjoxNzcwMTI4Nzk5fQ.wj9569NB9QW2fvV9UJLwRSolsLbjBApCfEH8azA4oUs",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/user?search=j",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "j"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
