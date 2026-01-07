@@ -133,3 +133,8 @@ http://localhost:5173
 
 - Auth Service: https://hub.docker.com/r/jeyamani/auth-service
 - Chat Service: https://hub.docker.com/r/jeyamani/chat-service
+
+
+## 🏗 Architecture Diagram
+
+![Architecture Diagram](docs/architecture.png)
