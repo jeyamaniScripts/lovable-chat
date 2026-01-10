@@ -10,14 +10,12 @@ const ENDPOINT = "http://localhost:4000";
 const ChatArea = () => {
   const { selectedChat, user } = ChatState();
 
-  const socketRef = useRef(null); // ✅ FIX
-  const selectedChatRef = useRef(null); // for comparison
+  const socketRef = useRef(null);
+  const selectedChatRef = useRef(null);
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [openGroupModal, setOpenGroupModal] = useState(false);
-  const [socketConnected, setSocketConnected] = useState(false);
 
   /* ---------------- SOCKET SETUP ---------------- */
   useEffect(() => {
@@ -31,14 +29,19 @@ const ChatArea = () => {
 
     socketRef.current.on("connected", () => {
       console.log("✅ Socket connected");
-      setSocketConnected(true);
+    });
+
+    socketRef.current.on("message received", (newMsg) => {
+      if (
+        selectedChatRef.current &&
+        selectedChatRef.current._id === newMsg.chat._id
+      ) {
+        setMessages((prev) => [...prev, newMsg]);
+      }
     });
 
     return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
-        socketRef.current = null;
-      }
+      socketRef.current.disconnect();
     };
   }, [user]);
 
@@ -48,31 +51,9 @@ const ChatArea = () => {
 
     selectedChatRef.current = selectedChat;
     socketRef.current.emit("join chat", selectedChat._id);
+
+    fetchMessages();
   }, [selectedChat]);
-
-  /* ---------------- RECEIVE MESSAGE ---------------- */
-  useEffect(() => {
-    if (!socketRef.current) return;
-
-    const handler = (newMessage) => {
-      if (
-        !selectedChatRef.current ||
-        selectedChatRef.current._id !== newMessage.chat._id
-      ) {
-        // notification logic later
-      } else {
-        setMessages((prev) => [...prev, newMessage]);
-      }
-    };
-
-    socketRef.current.on("message received", handler);
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.off("message received", handler);
-      }
-    };
-  }, []);
 
   /* ---------------- FETCH MESSAGES ---------------- */
   const fetchMessages = async () => {
@@ -96,10 +77,6 @@ const ChatArea = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchMessages();
-  }, [selectedChat]);
 
   /* ---------------- SEND MESSAGE ---------------- */
   const sendMessage = async (e) => {
@@ -141,20 +118,6 @@ const ChatArea = () => {
 
   return (
     <div className="flex-1 flex flex-col bg-gray-100 p-3 rounded-lg">
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-3">
-        <h2 className="text-xl font-semibold">
-          {selectedChat.isGroupChat
-            ? selectedChat.chatName.toUpperCase()
-            : "CHAT"}
-        </h2>
-
-        {selectedChat.isGroupChat && (
-          <button onClick={() => setOpenGroupModal(true)}>👁️</button>
-        )}
-      </div>
-
-      {/* MESSAGES */}
       <div className="flex-1 overflow-y-auto bg-white p-3 rounded">
         {loading ? (
           <p>Loading...</p>
@@ -162,19 +125,10 @@ const ChatArea = () => {
           messages.map((msg) => (
             <div
               key={msg._id}
-              className={`mb-3 flex ${
-                msg.sender._id === user._id
-                  ? "justify-end"
-                  : "justify-start"
+              className={`mb-2 flex ${
+                msg.sender._id === user._id ? "justify-end" : "justify-start"
               }`}
             >
-              {msg.sender._id !== user._id && (
-                <img
-                  src={msg.sender.pic || "https://i.pravatar.cc/40"}
-                  className="w-8 h-8 rounded-full"
-                />
-              )}
-
               <div className="px-3 py-2 bg-gray-200 rounded-lg">
                 {msg.content}
               </div>
@@ -183,7 +137,6 @@ const ChatArea = () => {
         )}
       </div>
 
-      {/* INPUT */}
       <input
         className="mt-3 p-2 border rounded"
         placeholder="Enter a message..."
@@ -192,10 +145,7 @@ const ChatArea = () => {
         onKeyDown={sendMessage}
       />
 
-      <ManageGroupModal
-        open={openGroupModal}
-        onClose={() => setOpenGroupModal(false)}
-      />
+      <ManageGroupModal />
     </div>
   );
 };

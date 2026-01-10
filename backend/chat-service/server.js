@@ -3,11 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-// start gRPC ONCE
-// require("./grpcServer");
-
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
@@ -33,16 +29,19 @@ io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
 
   socket.on("setup", (user) => {
-    if (!user?._id) return;
-    socket.join(user._id);
     socket.emit("connected");
   });
 
-  socket.on("join chat", (room) => socket.join(room));
+  socket.on("join chat", (chatId) => {
+    socket.join(chatId);
+    console.log("Joined chat:", chatId);
+  });
 
   socket.on("new message", (msg) => {
-    msg.chat.users.forEach((u) => {
-      socket.to(u._id).emit("message received", msg);
-    });
+    socket.to(msg.chat._id).emit("message received", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Socket disconnected:", socket.id);
   });
 });
