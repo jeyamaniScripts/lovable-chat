@@ -17,9 +17,10 @@ const ChatArea = () => {
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  /* ---------------- SOCKET SETUP ---------------- */
+  /* ================= SOCKET SETUP ================= */
   useEffect(() => {
-    if (!user) return;
+    // 🔐 IMPORTANT: wait until token exists
+    if (!user?.token) return;
 
     socketRef.current = io(ENDPOINT, {
       transports: ["websocket"],
@@ -42,25 +43,17 @@ const ChatArea = () => {
 
     return () => {
       socketRef.current.disconnect();
+      socketRef.current = null;
     };
-  }, [user]);
+  }, [user?.token]);
 
-  /* ---------------- JOIN CHAT ---------------- */
-  useEffect(() => {
-    if (!selectedChat || !socketRef.current) return;
-
-    selectedChatRef.current = selectedChat;
-    socketRef.current.emit("join chat", selectedChat._id);
-
-    fetchMessages();
-  }, [selectedChat]);
-
-  /* ---------------- FETCH MESSAGES ---------------- */
+  /* ================= FETCH MESSAGES ================= */
   const fetchMessages = async () => {
-    if (!selectedChat) return;
+    if (!selectedChat || !user?.token) return;
 
     try {
       setLoading(true);
+
       const { data } = await axios.get(
         `http://localhost:4000/api/message/${selectedChat._id}`,
         {
@@ -71,14 +64,24 @@ const ChatArea = () => {
       );
 
       setMessages(Array.isArray(data) ? data : []);
-    } catch {
+    } catch (err) {
       toast.error("Failed to load messages");
     } finally {
       setLoading(false);
     }
   };
 
-  /* ---------------- SEND MESSAGE ---------------- */
+  /* ================= JOIN CHAT ================= */
+  useEffect(() => {
+    if (!selectedChat || !socketRef.current || !user?.token) return;
+
+    selectedChatRef.current = selectedChat;
+    socketRef.current.emit("join chat", selectedChat._id);
+
+    fetchMessages();
+  }, [selectedChat, user?.token]);
+
+  /* ================= SEND MESSAGE ================= */
   const sendMessage = async (e) => {
     if (e.key !== "Enter" || !newMessage.trim()) return;
 
@@ -102,12 +105,12 @@ const ChatArea = () => {
 
       setMessages((prev) => [...prev, data]);
       socketRef.current.emit("new message", data);
-    } catch {
+    } catch (err) {
       toast.error("Message send failed");
     }
   };
 
-  /* ---------------- UI ---------------- */
+  /* ================= UI ================= */
   if (!selectedChat) {
     return (
       <div className="flex-1 flex items-center justify-center text-gray-400">
@@ -126,7 +129,9 @@ const ChatArea = () => {
             <div
               key={msg._id}
               className={`mb-2 flex ${
-                msg.sender._id === user._id ? "justify-end" : "justify-start"
+                msg.sender._id === user._id
+                  ? "justify-end"
+                  : "justify-start"
               }`}
             >
               <div className="px-3 py-2 bg-gray-200 rounded-lg">
